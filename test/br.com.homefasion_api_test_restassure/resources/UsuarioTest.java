@@ -3,8 +3,7 @@ package br.com.homefasion_api_test_restassure.resources;
 import io.restassured.http.Method;
 import org.junit.Test;
 
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.SENHA_TESTE_LOGIN;
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.USUARIO_TESTE_LOGIN;
+import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
 import static br.com.homefasion_api_test_restassure.shared.UsuarioEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
