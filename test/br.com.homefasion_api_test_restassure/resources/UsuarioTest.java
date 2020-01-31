@@ -1,8 +1,11 @@
 package br.com.homefasion_api_test_restassure.resources;
 
+import br.com.homefasion_api_test_restassure.categories.NegativeTest;
 import br.com.homefasion_api_test_restassure.categories.PositiveTest;
 import br.com.homefasion_api_test_restassure.categories.SmokeTest;
+import io.restassured.RestAssured;
 import io.restassured.http.Method;
+import io.restassured.response.Response;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -10,6 +13,7 @@ import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*
 import static br.com.homefasion_api_test_restassure.shared.UsuarioEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 
 public class UsuarioTest {
 
@@ -24,6 +28,14 @@ public class UsuarioTest {
                 .then()
                 .statusCode(200)
                 .body(is("Servidor no ar"));
+    }
+
+    @Test
+    @Category({NegativeTest.class})
+    public void naoDeveAcessarSemAutenticacao(){
+        Response response = RestAssured.request(Method.GET, GET_USUARIO_NO_AR);
+
+        assertEquals(401, response.getStatusCode());
     }
 
     @Test
