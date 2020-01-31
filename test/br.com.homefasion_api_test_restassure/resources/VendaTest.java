@@ -32,7 +32,7 @@ public class VendaTest {
                 .then()
                 .statusCode(200)
                 .body("id[0]", is(202))
-                .body("valor", is(207f));
+                .body("valor[0]", is(207f));
     }
 
     @Test
@@ -64,6 +64,6 @@ public class VendaTest {
                 .statusCode(200)
                 .body("id[0]", is(370))
                 .body("qtd[0]", is(2))
-                .body("valor", is(105.5f));
+                .body("valor[0]", is(105.5f));
     }
 }
