@@ -1,4 +1,4 @@
-package br.com.homefasion_api_test_restassure.shared.config;
+package br.com.homefasion_api_test_restassure.conf;
 
 public class ConfiguracaoPrincipal {
 

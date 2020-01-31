@@ -1,14 +1,15 @@
-package br.com.homefasion_api_test_restassure.test;
+package br.com.homefasion_api_test_restassure.resources;
 
 import io.restassured.http.Method;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.given;
-import static br.com.homefasion_api_test_restassure.shared.config.ConfiguracaoPrincipal.*;
+import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
 import static br.com.homefasion_api_test_restassure.shared.ClienteEndPoints.*;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
+
 
 public class ClienteTest {
 

@@ -1,6 +1,6 @@
 package br.com.homefasion_api_test_restassure.shared;
 
-import static br.com.homefasion_api_test_restassure.shared.config.ConfiguracaoPrincipal.*;
+import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
 
 public class ClienteEndPoints {
 
