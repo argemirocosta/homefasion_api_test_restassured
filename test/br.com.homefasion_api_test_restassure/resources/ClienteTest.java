@@ -1,7 +1,10 @@
 package br.com.homefasion_api_test_restassure.resources;
 
+import br.com.homefasion_api_test_restassure.categories.PositiveTest;
+import br.com.homefasion_api_test_restassure.categories.SmokeTest;
 import io.restassured.http.Method;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
 import static br.com.homefasion_api_test_restassure.shared.ClienteEndPoints.*;
@@ -14,6 +17,7 @@ import static org.hamcrest.Matchers.hasSize;
 public class ClienteTest {
 
     @Test
+    @Category({PositiveTest.class})
     public void deveVerificarSeClienteNoAr(){
         given()
                 .log().all()
@@ -26,6 +30,7 @@ public class ClienteTest {
     }
 
     @Test
+    @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarTodosOsClientes(){
         given()
                 .log().all()
@@ -38,6 +43,7 @@ public class ClienteTest {
     }
 
     @Test
+    @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarClienteEspecifico(){
         given()
                 .log().all()
@@ -54,6 +60,7 @@ public class ClienteTest {
     }
 
     @Test
+    @Category({PositiveTest.class})
     public void deveListarClientesPorUsuario(){
         given()
                 .log().all()
@@ -66,6 +73,7 @@ public class ClienteTest {
     }
 
     @Test
+    @Category({PositiveTest.class})
     public void deveListarClientesPorNomeUsuario(){
         given()
                 .log().all()

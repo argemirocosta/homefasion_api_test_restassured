@@ -1,7 +1,10 @@
 package br.com.homefasion_api_test_restassure.resources;
 
+import br.com.homefasion_api_test_restassure.categories.PositiveTest;
+import br.com.homefasion_api_test_restassure.categories.SmokeTest;
 import io.restassured.http.Method;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
 import static br.com.homefasion_api_test_restassure.shared.VendaEndPoints.*;
@@ -11,6 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 public class VendaTest {
 
     @Test
+    @Category({PositiveTest.class})
     public void deveVerificarSeVendaNoAr(){
         given()
                 .log().all()
@@ -23,6 +27,7 @@ public class VendaTest {
     }
 
     @Test
+    @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarTodosAsVendas(){
         given()
                 .log().all()
@@ -36,6 +41,7 @@ public class VendaTest {
     }
 
     @Test
+    @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarVendaEspecifica(){
         given()
                 .log().all()
@@ -54,6 +60,7 @@ public class VendaTest {
     }
 
     @Test
+    @Category({PositiveTest.class})
     public void deveListarVendaPorUsuario(){
         given()
                 .log().all()

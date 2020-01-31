@@ -1,7 +1,10 @@
 package br.com.homefasion_api_test_restassure.resources;
 
+import br.com.homefasion_api_test_restassure.categories.PositiveTest;
+import br.com.homefasion_api_test_restassure.categories.SmokeTest;
 import io.restassured.http.Method;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
 import static br.com.homefasion_api_test_restassure.shared.UsuarioEndPoints.*;
@@ -11,6 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 public class UsuarioTest {
 
     @Test
+    @Category({PositiveTest.class})
     public void deveVerificarSeUsuarioNoAr(){
         given()
                 .log().all()
@@ -23,6 +27,7 @@ public class UsuarioTest {
     }
 
     @Test
+    @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarTodosOsUsuario(){
         given()
                 .log().all()
@@ -35,6 +40,7 @@ public class UsuarioTest {
     }
 
     @Test
+    @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarUsuarioEspecifico(){
         given()
                 .log().all()
