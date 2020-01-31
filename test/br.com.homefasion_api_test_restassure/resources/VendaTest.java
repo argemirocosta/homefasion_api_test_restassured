@@ -31,7 +31,8 @@ public class VendaTest {
                 .request(Method.GET, GET_VENDA)
                 .then()
                 .statusCode(200)
-                .body("id[0]", is(202));
+                .body("id[0]", is(202))
+                .body("valor", is(207f));
     }
 
     @Test
@@ -46,6 +47,7 @@ public class VendaTest {
                 .body("id", is(374))
                 .body("cliente.id", is(234))
                 .body("qtd", is(2))
+                .body("valor", is(105.5f))
                 .body("data", is("01/01/2020"))
                 .body("idUsuario", is(155))
                 .body("cancelada", is(true));
@@ -61,6 +63,7 @@ public class VendaTest {
                 .then()
                 .statusCode(200)
                 .body("id[0]", is(370))
-                .body("qtd[0]", is(2));
+                .body("qtd[0]", is(2))
+                .body("valor", is(105.5f));
     }
 }
