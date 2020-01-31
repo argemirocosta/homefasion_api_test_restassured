@@ -8,12 +8,11 @@ import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.U
 import static br.com.homefasion_api_test_restassure.shared.UsuarioEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.contains;
 
 public class UsuarioTest {
 
     @Test
-    public void deveVerificarSeClienteNoAr(){
+    public void deveVerificarSeUsuarioNoAr(){
         given()
                 .log().all()
                 .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
@@ -25,7 +24,7 @@ public class UsuarioTest {
     }
 
     @Test
-    public void deveListarTodosOsClientes(){
+    public void deveListarTodosOsUsuario(){
         given()
                 .log().all()
                 .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
@@ -37,7 +36,7 @@ public class UsuarioTest {
     }
 
     @Test
-    public void deveListarClienteEspecifico(){
+    public void deveListarUsuarioEspecifico(){
         given()
                 .log().all()
                 .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
