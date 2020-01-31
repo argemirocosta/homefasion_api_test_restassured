@@ -32,7 +32,7 @@ public class PagamentoTest {
                 .then()
                 .statusCode(200)
                 .body("id[0]", is(305))
-                .body("valorPago", is(37f));
+                .body("valorPago[0]", is(37f));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class PagamentoTest {
                 .statusCode(200)
                 .body("id[0]", is(336))
                 .body("idVenda[0]", is(167))
-                .body("valorPago", is(80f));
+                .body("valorPago[0]", is(80f));
     }
 
     @Test
@@ -77,6 +77,6 @@ public class PagamentoTest {
                 .body("id[0]", is(336))
                 .body("idVenda[0]", is(167))
                 .body("dataPagamento[0]", is("27/02/2018"))
-                .body("valorPago", is(80f));
+                .body("valorPago[0]", is(80f));
     }
 }
