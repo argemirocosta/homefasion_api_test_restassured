@@ -24,13 +24,13 @@ public class ClienteTest {
     @Category({PositiveTest.class})
     public void deveVerificarSeClienteNoAr(){
         given()
-                .log().all()
-                .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .log().all()
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
                 .when()
-                .request(Method.GET, GET_CLIENTE_NO_AR)
+                    .request(Method.GET, GET_CLIENTE_NO_AR)
                 .then()
-                .statusCode(200)
-                .body(is("Servidor no ar"));
+                    .statusCode(200)
+                    .body(is("Servidor no ar"));
     }
 
     @Test
@@ -45,56 +45,139 @@ public class ClienteTest {
     @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarTodosOsClientes(){
         given()
-                .log().all()
-                .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .log().all()
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
                 .when()
-                .request(Method.GET, GET_CLIENTE)
+                    .request(Method.GET, CLIENTE)
                 .then()
-                .statusCode(200)
-                .body("content.id", contains(43, 44, 45, 46, 47, 48, 49, 50, 51, 52));
+                    .statusCode(200)
+                    .body("content.id", contains(43, 44, 45, 46, 47, 48, 49, 50, 51, 52));
     }
 
     @Test
     @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarClienteEspecifico(){
         given()
-                .log().all()
-                .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .log().all()
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
                 .when()
-                .request(Method.GET, GET_CLIENTE_ESPECIFICO)
+                    .request(Method.GET, CLIENTE_ESPECIFICO)
                 .then()
-                .statusCode(200)
-                .body("id", is(241))
-                .body("nome", is("JPA Teste 1"))
-                .body("dataNascimento", is("15/09/2019"))
-                .body("cpf", is("07725791485"))
-                .body("telefone1", is(12345678));
+                    .statusCode(200)
+                    .body("id", is(241))
+                    .body("nome", is("JPA Teste 1"))
+                    .body("dataNascimento", is("15/09/2019"))
+                    .body("cpf", is("07725791485"))
+                    .body("telefone1", is(12345678));
     }
 
     @Test
     @Category({PositiveTest.class})
     public void deveListarClientesPorUsuario(){
         given()
-                .log().all()
-                .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .log().all()
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
                 .when()
-                .request(Method.GET, GET_CLIENTES_POR_USUARIO)
+                    .request(Method.GET, GET_CLIENTES_POR_USUARIO)
                 .then()
-                .statusCode(200)
-                .body("nome[1]", is("DRA. ISIS NOGUEIRA"));
+                    .statusCode(200)
+                    .body("nome[1]", is("DRA. ISIS NOGUEIRA"));
     }
 
     @Test
     @Category({PositiveTest.class})
     public void deveListarClientesPorNomeUsuario(){
         given()
-                .log().all()
-                .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .log().all()
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
                 .when()
-                .request(Method.GET, GET_CLIENTES_POR_NOME_USUARIO)
+                    .request(Method.GET, GET_CLIENTES_POR_NOME_USUARIO)
                 .then()
-                .statusCode(200)
-                .body("$", hasSize(1));
+                    .statusCode(200)
+                    .body("$", hasSize(1));
+    }
+
+    @Test
+    @Category({PositiveTest.class})
+    public void deveSalvarCliente(){
+        given()
+                    .log().all()
+                    .contentType("application/json")
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .body("{\"nome\": \"TESTE 107\", \"cpf\": \"07725791485\", \"usuario\": {\"id\": 155}}")
+                .when()
+                    .request(Method.POST, CLIENTE)
+                .then()
+                    .statusCode(201);
+    }
+
+    @Test
+    @Category({NegativeTest.class})
+    public void naoDeveSalvarClienteSemNome(){
+        given()
+                    .log().all()
+                    .contentType("application/json")
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .body("{\"cpf\": \"07725791485\", \"usuario\": {\"id\": 155}}")
+                .when()
+                    .request(Method.POST, CLIENTE)
+                .then()
+                    .statusCode(400);
+    }
+
+    @Test
+    @Category({PositiveTest.class})
+    public void deveAlterarCliente(){
+        given()
+                    .log().all()
+                    .contentType("application/json")
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .body("{\"nome\": \"Teste Alteracao 02\", \"cpf\": \"07725791485\", \"telefone1\": 12345678, \"usuario\": { \"id\": 155 }}")
+                .when()
+                    .request(Method.PUT, CLIENTE_ESPECIFICO)
+                .then()
+                    .statusCode(204);
+    }
+
+    @Test
+    @Category({NegativeTest.class})
+    public void naoDeveAlterarClienteSemNome(){
+        given()
+                    .log().all()
+                    .contentType("application/json")
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .body("{\"cpf\": \"07725791485\", \"telefone1\": 12345678, \"usuario\": { \"id\": 155 }}")
+                .when()
+                    .request(Method.PUT, CLIENTE_ESPECIFICO)
+                .then()
+                    .statusCode(500);
+    }
+
+    @Test
+    @Category({PositiveTest.class})
+    public void deveRemoverCliente(){
+        given()
+                    .log().all()
+                    .contentType("application/json")
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                .when()
+                    .request(Method.DELETE, CLIENTE_ESPECIFICO)
+                .then()
+                    .statusCode(204);
+    }
+
+    @Test
+    @Category({NegativeTest.class})
+    public void naoDeveRemoverClienteQueNaoExiste(){
+        given()
+                    .log().all()
+                    .contentType("application/json")
+                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                .when()
+                    .request(Method.DELETE, CLIENTE_ESPECIFICO)
+                .then()
+                    .statusCode(404);
     }
 
 }
+
