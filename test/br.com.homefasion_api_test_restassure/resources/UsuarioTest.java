@@ -16,6 +16,7 @@ import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*
 import static br.com.homefasion_api_test_restassure.shared.UsuarioEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 
 public class UsuarioTest {
@@ -30,6 +31,7 @@ public class UsuarioTest {
                     .request(Method.GET, GET_USUARIO_NO_AR)
                 .then()
                     .statusCode(200)
+                    .time(lessThan(3000L))
                     .body(is("Servidor no ar"));
     }
 

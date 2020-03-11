@@ -15,8 +15,7 @@ import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*
 import static br.com.homefasion_api_test_restassure.shared.ClienteEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 
 
@@ -32,6 +31,7 @@ public class ClienteTest {
                     .request(Method.GET, GET_CLIENTE_NO_AR)
                 .then()
                     .statusCode(200)
+                    .time(lessThan(3000L))
                     .body(is("Servidor no ar"));
     }
 
