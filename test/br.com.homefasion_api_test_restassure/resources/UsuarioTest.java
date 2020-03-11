@@ -75,7 +75,7 @@ public class UsuarioTest {
     @Test
     @Category({PositiveTest.class})
     public void deveSalvarUsuario(){
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("nome", "Teste API 05");
         params.put("login", "testeapi05");
         params.put("senha", "1");
@@ -95,7 +95,7 @@ public class UsuarioTest {
     @Test
     @Category({NegativeTest.class})
     public void naoDeveSalvarUsuarioSemNome(){
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("login", "testeapi05");
         params.put("senha", "1");
         params.put("ativo", true);
@@ -114,8 +114,8 @@ public class UsuarioTest {
     @Test
     @Category({PositiveTest.class})
     public void deveAlterarUsuario(){
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("nome", "Teste API Alterando usuário");
+        Map<String, Object> params = new HashMap<>();
+        params.put("nome", "Teste API Alterando usuário 01");
         params.put("login", "testeapi");
         params.put("senha", "1");
         params.put("ativo", true);
@@ -135,7 +135,7 @@ public class UsuarioTest {
     @Test
     @Category({NegativeTest.class})
     public void naoDeveAlterarUsuarioSemNome(){
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("login", "testeapi05");
         params.put("senha", "1");
         params.put("ativo", true);
