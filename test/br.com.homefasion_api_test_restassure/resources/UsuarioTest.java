@@ -9,6 +9,9 @@ import io.restassured.response.Response;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
 import static br.com.homefasion_api_test_restassure.shared.UsuarioEndPoints.*;
 import static io.restassured.RestAssured.given;
@@ -48,7 +51,7 @@ public class UsuarioTest {
                     .request(Method.GET, USUARIO)
                 .then()
                     .statusCode(200)
-                    .body("id[0]", is(158));
+                    .body("id[0]", is(159));
     }
 
     @Test
@@ -57,25 +60,32 @@ public class UsuarioTest {
         given()
                     .log().all()
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .pathParam("id", 159)
                 .when()
-                    .request(Method.GET, USUARIO_ESPECIFICO)
+                    .request(Method.GET, USUARIO+"{id}")
                 .then()
                     .statusCode(200)
-                    .body("id", is(155))
-                    .body("nome", is("TESTEUSER"))
-                    .body("login", is("TESTEUSER"))
-                    .body("senha", is("1"))
+                    .body("id", is(159))
+                    .body("nome", is("SR. MARCOS LOPES"))
+                    .body("login", is("DAVI.ALVES"))
+                    .body("senha", is("roberto"))
                     .body("ativo", is(true));
     }
 
     @Test
     @Category({PositiveTest.class})
     public void deveSalvarUsuario(){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("nome", "Teste API 05");
+        params.put("login", "testeapi05");
+        params.put("senha", "1");
+        params.put("ativo", true);
+
         given()
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .body("{ \"nome\": \"Teste API 04\", \"login\": \"testeapi04\", \"senha\": \"1\", \"ativo\": true }")
+                    .body(params)
                 .when()
                     .request(Method.POST, USUARIO)
                 .then()
@@ -85,11 +95,16 @@ public class UsuarioTest {
     @Test
     @Category({NegativeTest.class})
     public void naoDeveSalvarUsuarioSemNome(){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("login", "testeapi05");
+        params.put("senha", "1");
+        params.put("ativo", true);
+
         given()
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .body("{ \"login\": \"testeapi04\", \"senha\": \"1\", \"ativo\": true }")
+                    .body(params)
                 .when()
                     .request(Method.POST, USUARIO)
                 .then()
@@ -99,13 +114,20 @@ public class UsuarioTest {
     @Test
     @Category({PositiveTest.class})
     public void deveAlterarUsuario(){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("nome", "Teste API Alterando usuário");
+        params.put("login", "testeapi");
+        params.put("senha", "1");
+        params.put("ativo", true);
+
         given()
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .body("{ \"nome\": \"Teste API 06\", \"login\": \"testeapi06\", \"senha\": \"1\", \"ativo\": true }")
+                    .body(params)
+                    .pathParam("id", 155)
                 .when()
-                    .put(USUARIO_ESPECIFICO)
+                    .put(USUARIO+"{id}")
                 .then()
                     .statusCode(204);
     }
@@ -113,13 +135,19 @@ public class UsuarioTest {
     @Test
     @Category({NegativeTest.class})
     public void naoDeveAlterarUsuarioSemNome(){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("login", "testeapi05");
+        params.put("senha", "1");
+        params.put("ativo", true);
+
         given()
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .body("{ \"login\": \"testeapi04\", \"senha\": \"1\", \"ativo\": true }")
+                    .body(params)
+                    .pathParam("id", 155)
                 .when()
-                    .request(Method.PUT, USUARIO_ESPECIFICO)
+                    .put(USUARIO+"{id}")
                 .then()
                     .statusCode(500);
     }
@@ -131,7 +159,7 @@ public class UsuarioTest {
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .pathParam("id", 183)
+                    .pathParam("id", 184)
                 .when()
                     .delete(USUARIO+"{id}")
                 .then()
@@ -145,7 +173,7 @@ public class UsuarioTest {
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .pathParam("id", 183)
+                    .pathParam("id", 184)
                 .when()
                     .delete(USUARIO+"{id}")
                 .then()
