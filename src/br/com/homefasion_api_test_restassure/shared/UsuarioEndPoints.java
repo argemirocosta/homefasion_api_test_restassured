@@ -10,6 +10,6 @@ public class UsuarioEndPoints {
 
     public static final String GET_USUARIO_NO_AR = USUARIO +"servidor";
 
-    public static final String USUARIO_ESPECIFICO = USUARIO +"155/";
+    public static final String GET_USUARIO_ESPECIFICO = USUARIO +"155/";
 
 }
