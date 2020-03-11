@@ -3,6 +3,8 @@ package br.com.homefasion_api_test_restassure.resources;
 import br.com.homefasion_api_test_restassure.categories.NegativeTest;
 import br.com.homefasion_api_test_restassure.categories.PositiveTest;
 import br.com.homefasion_api_test_restassure.categories.SmokeTest;
+import br.com.homefasion_api_test_restassure.dto.ClienteCadastrarDTO;
+import br.com.homefasion_api_test_restassure.dto.UsuarioDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
@@ -61,14 +63,13 @@ public class ClienteTest {
                     .log().all()
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
                 .when()
-                    .request(Method.GET, CLIENTE_ESPECIFICO)
+                    .request(Method.GET, GET_CLIENTE_ESPECIFICO)
                 .then()
                     .statusCode(200)
-                    .body("id", is(241))
-                    .body("nome", is("JPA Teste 1"))
-                    .body("dataNascimento", is("15/09/2019"))
-                    .body("cpf", is("07725791485"))
-                    .body("telefone1", is(12345678));
+                    .body("id", is(234))
+                    .body("nome", is("Teste Alteracao 03"))
+                    .body("cpf", is("90451718054"))
+                    .body("telefone1", is(987654321));
     }
 
     @Test
@@ -94,17 +95,20 @@ public class ClienteTest {
                     .request(Method.GET, GET_CLIENTES_POR_NOME_USUARIO)
                 .then()
                     .statusCode(200)
-                    .body("$", hasSize(1));
+                    .body("$", hasSize(3));
     }
 
     @Test
     @Category({PositiveTest.class})
     public void deveSalvarCliente(){
+        UsuarioDTO usuario = new UsuarioDTO(155);
+        ClienteCadastrarDTO cliente = new ClienteCadastrarDTO("TESTE 109", "90451718054", 987654321, usuario);
+
         given()
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .body("{\"nome\": \"TESTE 107\", \"cpf\": \"07725791485\", \"usuario\": {\"id\": 155}}")
+                    .body(cliente)
                 .when()
                     .request(Method.POST, CLIENTE)
                 .then()
@@ -114,11 +118,15 @@ public class ClienteTest {
     @Test
     @Category({NegativeTest.class})
     public void naoDeveSalvarClienteSemNome(){
+
+        UsuarioDTO usuario = new UsuarioDTO(155);
+        ClienteCadastrarDTO cliente = new ClienteCadastrarDTO(null, "90451718054", 987654321, usuario);
+
         given()
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .body("{\"cpf\": \"07725791485\", \"usuario\": {\"id\": 155}}")
+                    .body(cliente)
                 .when()
                     .request(Method.POST, CLIENTE)
                 .then()
@@ -128,13 +136,18 @@ public class ClienteTest {
     @Test
     @Category({PositiveTest.class})
     public void deveAlterarCliente(){
+
+        UsuarioDTO usuario = new UsuarioDTO(155);
+        ClienteCadastrarDTO cliente = new ClienteCadastrarDTO("TESTE 109 alterado", "90451718054", 987654321, usuario);
+
         given()
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .body("{\"nome\": \"Teste Alteracao 02\", \"cpf\": \"07725791485\", \"telefone1\": 12345678, \"usuario\": { \"id\": 155 }}")
+                    .body(cliente)
+                    .pathParam("id", 296)
                 .when()
-                    .request(Method.PUT, CLIENTE_ESPECIFICO)
+                    .put(CLIENTE+"{id}")
                 .then()
                     .statusCode(204);
     }
@@ -142,13 +155,18 @@ public class ClienteTest {
     @Test
     @Category({NegativeTest.class})
     public void naoDeveAlterarClienteSemNome(){
+
+        UsuarioDTO usuario = new UsuarioDTO(155);
+        ClienteCadastrarDTO cliente = new ClienteCadastrarDTO(null, "90451718054", 987654321, usuario);
+
         given()
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
-                    .body("{\"cpf\": \"07725791485\", \"telefone1\": 12345678, \"usuario\": { \"id\": 155 }}")
+                    .body(cliente)
+                    .pathParam("id", 234)
                 .when()
-                    .request(Method.PUT, CLIENTE_ESPECIFICO)
+                    .put(CLIENTE+"{id}")
                 .then()
                     .statusCode(500);
     }
@@ -160,8 +178,9 @@ public class ClienteTest {
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .pathParam("id", 296)
                 .when()
-                    .request(Method.DELETE, CLIENTE_ESPECIFICO)
+                    .delete(CLIENTE+"{id}")
                 .then()
                     .statusCode(204);
     }
@@ -173,10 +192,11 @@ public class ClienteTest {
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .pathParam("id", 234)
                 .when()
-                    .request(Method.DELETE, CLIENTE_ESPECIFICO)
+                    .delete(CLIENTE+"{id}")
                 .then()
-                    .statusCode(404);
+                    .statusCode(500);
     }
 
 }

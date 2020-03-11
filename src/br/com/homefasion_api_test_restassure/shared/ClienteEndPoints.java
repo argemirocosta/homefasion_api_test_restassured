@@ -10,7 +10,7 @@ public class ClienteEndPoints {
 
     public static final String GET_CLIENTE_NO_AR = CLIENTE +"servidor";
 
-    public static final String CLIENTE_ESPECIFICO = CLIENTE +"241/";
+    public static final String GET_CLIENTE_ESPECIFICO = CLIENTE +"234/";
 
     public static final String GET_CLIENTES_POR_USUARIO = CLIENTE +"usuario/155";
 
