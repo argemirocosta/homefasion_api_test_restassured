@@ -31,11 +31,11 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
+        <sourceDirectory>main</sourceDirectory>
         <testSourceDirectory>test</testSourceDirectory>
         <resources>
             <resource>
-                <directory>src</directory>
+                <directory>main</directory>
                 <excludes>
                     <exclude>**/*.java</exclude>
                 </excludes>
