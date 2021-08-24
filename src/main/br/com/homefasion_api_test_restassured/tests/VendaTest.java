@@ -1,16 +1,16 @@
-package br.com.homefasion_api_test_restassure.resources;
+package br.com.homefasion_api_test_restassured.tests;
 
-import br.com.homefasion_api_test_restassure.categories.NegativeTest;
-import br.com.homefasion_api_test_restassure.categories.PositiveTest;
-import br.com.homefasion_api_test_restassure.categories.SmokeTest;
+import br.com.homefasion_api_test_restassured.categories.NegativeTest;
+import br.com.homefasion_api_test_restassured.categories.PositiveTest;
+import br.com.homefasion_api_test_restassured.categories.SmokeTest;
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
-import static br.com.homefasion_api_test_restassure.shared.VendaEndPoints.*;
+import static br.com.homefasion_api_test_restassured.conf.Configs.*;
+import static br.com.homefasion_api_test_restassured.shared.VendaEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.lessThan;
@@ -23,7 +23,7 @@ public class VendaTest {
     public void deveVerificarSeVendaNoAr(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_VENDA_NO_AR)
                 .then()
@@ -45,7 +45,7 @@ public class VendaTest {
     public void deveListarTodosAsVendas(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, VENDA)
                 .then()
@@ -59,7 +59,7 @@ public class VendaTest {
     public void deveListarVendaEspecifica(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, VENDA_ESPECIFICA)
                 .then()
@@ -78,7 +78,7 @@ public class VendaTest {
     public void deveListarVendaPorUsuario(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_VENDAS_POR_USUARIO)
                 .then()
@@ -94,7 +94,7 @@ public class VendaTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body("{ \"idCliente\": 234, \"valor\": 300, \"qtd\": 2, \"data\": \"01/01/2020\", \"idUsuario\": 155, \"cancelada\": \"false\", \"dataHoraCancelamento\": null }")
                 .when()
                     .request(Method.POST, VENDA)
@@ -108,7 +108,7 @@ public class VendaTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .pathParam("codigoVenda", 382)
                 .when()
                     .put(PUT_VENDA_CANCELAR+"{codigoVenda}")

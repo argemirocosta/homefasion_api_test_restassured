@@ -1,12 +1,10 @@
-package br.com.homefasion_api_test_restassure.shared;
-
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
+package br.com.homefasion_api_test_restassured.shared;
 
 public class ClienteEndPoints {
 
     private ClienteEndPoints() {}
 
-    public static final String CLIENTE = ENDPOINT_PRINCIPAL_PARA_TESTE+"cliente/";
+    public static final String CLIENTE = "cliente/";
 
     public static final String GET_CLIENTE_NO_AR = CLIENTE +"servidor";
 

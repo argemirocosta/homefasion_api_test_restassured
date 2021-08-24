@@ -1,37 +1,35 @@
-package br.com.homefasion_api_test_restassure.resources;
+package br.com.homefasion_api_test_restassured.tests;
 
-import br.com.homefasion_api_test_restassure.categories.NegativeTest;
-import br.com.homefasion_api_test_restassure.categories.PositiveTest;
-import br.com.homefasion_api_test_restassure.categories.SmokeTest;
-import br.com.homefasion_api_test_restassure.dto.ClienteCadastrarDTO;
-import br.com.homefasion_api_test_restassure.dto.UsuarioDTO;
+import br.com.homefasion_api_test_restassured.categories.NegativeTest;
+import br.com.homefasion_api_test_restassured.categories.PositiveTest;
+import br.com.homefasion_api_test_restassured.categories.SmokeTest;
+import br.com.homefasion_api_test_restassured.conf.BaseTest;
+import br.com.homefasion_api_test_restassured.dto.ClienteCadastrarDTO;
+import br.com.homefasion_api_test_restassured.dto.UsuarioDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
-import static br.com.homefasion_api_test_restassure.shared.ClienteEndPoints.*;
+import static br.com.homefasion_api_test_restassured.shared.ClienteEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 
 
-public class ClienteTest {
+public class ClienteTest extends BaseTest {
 
     @Test
     @Category({PositiveTest.class})
     public void deveVerificarSeClienteNoAr(){
         given()
-                    .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_CLIENTE_NO_AR)
                 .then()
                     .statusCode(200)
-                    .time(lessThan(3000L))
                     .body(is("Servidor no ar"));
     }
 
@@ -48,7 +46,7 @@ public class ClienteTest {
     public void deveListarTodosOsClientes(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, CLIENTE)
                 .then()
@@ -61,7 +59,7 @@ public class ClienteTest {
     public void deveListarClienteEspecifico(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_CLIENTE_ESPECIFICO)
                 .then()
@@ -77,7 +75,7 @@ public class ClienteTest {
     public void deveListarClientesPorUsuario(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_CLIENTES_POR_USUARIO)
                 .then()
@@ -90,7 +88,7 @@ public class ClienteTest {
     public void deveListarClientesPorNomeUsuario(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_CLIENTES_POR_NOME_USUARIO)
                 .then()
@@ -107,7 +105,7 @@ public class ClienteTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body(cliente)
                 .when()
                     .request(Method.POST, CLIENTE)
@@ -125,7 +123,7 @@ public class ClienteTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body(cliente)
                 .when()
                     .request(Method.POST, CLIENTE)
@@ -143,7 +141,7 @@ public class ClienteTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body(cliente)
                     .pathParam("id", 296)
                 .when()
@@ -162,7 +160,7 @@ public class ClienteTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body(cliente)
                     .pathParam("id", 234)
                 .when()
@@ -177,7 +175,7 @@ public class ClienteTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .pathParam("id", 296)
                 .when()
                     .delete(CLIENTE+"{id}")
@@ -191,7 +189,7 @@ public class ClienteTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .pathParam("id", 234)
                 .when()
                     .delete(CLIENTE+"{id}")

@@ -1,29 +1,29 @@
-package br.com.homefasion_api_test_restassure.resources;
+package br.com.homefasion_api_test_restassured.tests;
 
-import br.com.homefasion_api_test_restassure.categories.NegativeTest;
-import br.com.homefasion_api_test_restassure.categories.PositiveTest;
-import br.com.homefasion_api_test_restassure.categories.SmokeTest;
+import br.com.homefasion_api_test_restassured.categories.NegativeTest;
+import br.com.homefasion_api_test_restassured.categories.PositiveTest;
+import br.com.homefasion_api_test_restassured.categories.SmokeTest;
+import br.com.homefasion_api_test_restassured.conf.BaseTest;
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
-import static br.com.homefasion_api_test_restassure.shared.PagamentoEndPoints.*;
+import static br.com.homefasion_api_test_restassured.shared.PagamentoEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 
-public class PagamentoTest {
+public class PagamentoTest extends BaseTest {
 
     @Test
     @Category({PositiveTest.class})
     public void deveVerificarSePagamentoNoAr(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_PAGAMENTO_NO_AR)
                 .then()
@@ -45,7 +45,7 @@ public class PagamentoTest {
     public void deveListarTodosOsPagamento(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, PAGAMENTO)
                 .then()
@@ -59,7 +59,7 @@ public class PagamentoTest {
     public void deveListarPagamentoEspecifico(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, PAGAMENTO_ESPECIFICO)
                 .then()
@@ -76,7 +76,7 @@ public class PagamentoTest {
     public void deveListarPagamentoPorCliente(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_PAGAMENTOS_POR_CLIENTE)
                 .then()
@@ -91,7 +91,7 @@ public class PagamentoTest {
     public void deveListarPagamentoPorVenda(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_PAGAMENTOS_POR_VENDA)
                 .then()
@@ -108,7 +108,7 @@ public class PagamentoTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body("{\"idVenda\": 374, \"valorPago\": 1,\"dataPagamento\": \"09/03/2020\",\"idUsuario\": \"155\", \"cancelada\": \"false\", \"dataHoraCancelamento\": null }")
                 .when()
                     .request(Method.POST, PAGAMENTO)
@@ -122,7 +122,7 @@ public class PagamentoTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body("{\"valorPago\": 1,\"dataPagamento\": \"09/03/2020\",\"idUsuario\": \"155\", \"cancelada\": \"false\", \"dataHoraCancelamento\": null }")
                 .when()
                     .request(Method.POST, PAGAMENTO)
@@ -136,7 +136,7 @@ public class PagamentoTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .pathParam("codigoPagamento", 793)
                 .when()
                     .put(PUT_PAGAMENTO_CANCELAR+"{codigoPagamento}")

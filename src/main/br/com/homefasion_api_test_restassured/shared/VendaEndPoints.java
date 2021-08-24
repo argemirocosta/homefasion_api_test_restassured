@@ -1,12 +1,10 @@
-package br.com.homefasion_api_test_restassure.shared;
-
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.ENDPOINT_PRINCIPAL_PARA_TESTE;
+package br.com.homefasion_api_test_restassured.shared;
 
 public class VendaEndPoints {
 
     private VendaEndPoints() {}
 
-    public static final String VENDA = ENDPOINT_PRINCIPAL_PARA_TESTE+"venda/";
+    public static final String VENDA = "venda/";
 
     public static final String GET_VENDA_NO_AR = VENDA +"servidor";
 

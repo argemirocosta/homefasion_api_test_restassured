@@ -1,8 +1,9 @@
-package br.com.homefasion_api_test_restassure.resources;
+package br.com.homefasion_api_test_restassured.tests;
 
-import br.com.homefasion_api_test_restassure.categories.NegativeTest;
-import br.com.homefasion_api_test_restassure.categories.PositiveTest;
-import br.com.homefasion_api_test_restassure.categories.SmokeTest;
+import br.com.homefasion_api_test_restassured.categories.NegativeTest;
+import br.com.homefasion_api_test_restassured.categories.PositiveTest;
+import br.com.homefasion_api_test_restassured.categories.SmokeTest;
+import br.com.homefasion_api_test_restassured.conf.BaseTest;
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
@@ -12,26 +13,25 @@ import org.junit.experimental.categories.Category;
 import java.util.HashMap;
 import java.util.Map;
 
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.*;
-import static br.com.homefasion_api_test_restassure.shared.UsuarioEndPoints.*;
+import static br.com.homefasion_api_test_restassured.shared.UsuarioEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 
-public class UsuarioTest {
+public class UsuarioTest extends BaseTest {
 
     @Test
     @Category({PositiveTest.class})
     public void deveVerificarSeUsuarioNoAr(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, GET_USUARIO_NO_AR)
                 .then()
                     .statusCode(200)
-                    .time(lessThan(3000L))
+                    .time(lessThan(1700L))
                     .body(is("Servidor no ar"));
     }
 
@@ -48,7 +48,7 @@ public class UsuarioTest {
     public void deveListarTodosOsUsuario(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
                     .request(Method.GET, USUARIO)
                 .then()
@@ -61,7 +61,7 @@ public class UsuarioTest {
     public void deveListarUsuarioEspecifico(){
         given()
                     .log().all()
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .pathParam("id", 159)
                 .when()
                     .request(Method.GET, USUARIO+"{id}")
@@ -86,7 +86,7 @@ public class UsuarioTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body(params)
                 .when()
                     .request(Method.POST, USUARIO)
@@ -105,7 +105,7 @@ public class UsuarioTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body(params)
                 .when()
                     .request(Method.POST, USUARIO)
@@ -125,7 +125,7 @@ public class UsuarioTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body(params)
                     .pathParam("id", 155)
                 .when()
@@ -145,7 +145,7 @@ public class UsuarioTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body(params)
                     .pathParam("id", 155)
                 .when()
@@ -160,7 +160,7 @@ public class UsuarioTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .pathParam("id", 184)
                 .when()
                     .delete(USUARIO+"{id}")
@@ -174,7 +174,7 @@ public class UsuarioTest {
         given()
                     .log().all()
                     .contentType("application/json")
-                    .auth().basic(USUARIO_TESTE_LOGIN, SENHA_TESTE_LOGIN)
+                    .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .pathParam("id", 184)
                 .when()
                     .delete(USUARIO+"{id}")

@@ -1,4 +1,4 @@
-package br.com.homefasion_api_test_restassure.dto;
+package br.com.homefasion_api_test_restassured.dto;
 
 import java.util.Objects;
 

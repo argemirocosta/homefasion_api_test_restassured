@@ -1,12 +1,10 @@
-package br.com.homefasion_api_test_restassure.shared;
-
-import static br.com.homefasion_api_test_restassure.conf.ConfiguracaoPrincipal.ENDPOINT_PRINCIPAL_PARA_TESTE;
+package br.com.homefasion_api_test_restassured.shared;
 
 public class PagamentoEndPoints {
 
     private PagamentoEndPoints() {}
 
-    public static final String PAGAMENTO = ENDPOINT_PRINCIPAL_PARA_TESTE+"pagamento/";
+    public static final String PAGAMENTO = "pagamento/";
 
     public static final String GET_PAGAMENTO_NO_AR = PAGAMENTO +"servidor";
 
