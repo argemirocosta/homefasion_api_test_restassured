@@ -22,10 +22,9 @@ public class VendaTest {
     @Category({PositiveTest.class})
     public void deveVerificarSeVendaNoAr(){
         given()
-                    .log().all()
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
-                    .request(Method.GET, GET_VENDA_NO_AR)
+                    .get(GET_VENDA_NO_AR)
                 .then()
                     .statusCode(200)
                     .time(lessThan(3000L))
@@ -44,10 +43,9 @@ public class VendaTest {
     @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarTodosAsVendas(){
         given()
-                    .log().all()
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
-                    .request(Method.GET, VENDA)
+                    .get(VENDA)
                 .then()
                     .statusCode(200)
                     .body("id[0]", is(202))
@@ -58,10 +56,9 @@ public class VendaTest {
     @Category({PositiveTest.class, SmokeTest.class})
     public void deveListarVendaEspecifica(){
         given()
-                    .log().all()
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
-                    .request(Method.GET, VENDA_ESPECIFICA)
+                    .get(VENDA_ESPECIFICA)
                 .then()
                     .statusCode(200)
                     .body("id", is(374))
@@ -77,10 +74,9 @@ public class VendaTest {
     @Category({PositiveTest.class})
     public void deveListarVendaPorUsuario(){
         given()
-                    .log().all()
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
-                    .request(Method.GET, GET_VENDAS_POR_USUARIO)
+                    .get(GET_VENDAS_POR_USUARIO)
                 .then()
                     .statusCode(200)
                     .body("id[0]", is(370))
@@ -92,12 +88,11 @@ public class VendaTest {
     @Category({PositiveTest.class})
     public void deveRealizarVenda(){
         given()
-                    .log().all()
                     .contentType("application/json")
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .body("{ \"idCliente\": 234, \"valor\": 300, \"qtd\": 2, \"data\": \"01/01/2020\", \"idUsuario\": 155, \"cancelada\": \"false\", \"dataHoraCancelamento\": null }")
                 .when()
-                    .request(Method.POST, VENDA)
+                    .post(VENDA)
                 .then()
                     .statusCode(201);
     }
@@ -106,7 +101,6 @@ public class VendaTest {
     @Category({PositiveTest.class})
     public void deveRealizarCancelamentoDeVenda(){
         given()
-                    .log().all()
                     .contentType("application/json")
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                     .pathParam("codigoVenda", 382)
