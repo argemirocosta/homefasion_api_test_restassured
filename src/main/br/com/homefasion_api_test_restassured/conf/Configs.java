@@ -9,6 +9,6 @@ public interface Configs {
     String USER_FOR_TEST = "usuario1";
     String PASSWORD_FOR_TEST = "senha1";
     ContentType APP_CONTENT_TYPE = ContentType.JSON;
-    Long MAX_TIMEOUT = 3000L;
+    Long MAX_TIMEOUT = 4000L;
 
 }

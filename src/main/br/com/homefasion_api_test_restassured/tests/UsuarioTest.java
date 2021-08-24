@@ -4,6 +4,8 @@ import br.com.homefasion_api_test_restassured.categories.NegativeTest;
 import br.com.homefasion_api_test_restassured.categories.PositiveTest;
 import br.com.homefasion_api_test_restassured.categories.SmokeTest;
 import br.com.homefasion_api_test_restassured.conf.BaseTest;
+import br.com.homefasion_api_test_restassured.data.UsuarioData;
+import br.com.homefasion_api_test_restassured.util.NumberUtil;
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
@@ -17,6 +19,7 @@ import static br.com.homefasion_api_test_restassured.shared.UsuarioEndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 
 public class UsuarioTest extends BaseTest {
@@ -53,7 +56,7 @@ public class UsuarioTest extends BaseTest {
                     .request(Method.GET, USUARIO)
                 .then()
                     .statusCode(200)
-                    .body("id[0]", is(159));
+                    .body("$", notNullValue());
     }
 
     @Test
@@ -62,16 +65,12 @@ public class UsuarioTest extends BaseTest {
         given()
                     .log().all()
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
-                    .pathParam("id", 159)
+                    .pathParam("id", 155)
                 .when()
                     .request(Method.GET, USUARIO+"{id}")
                 .then()
                     .statusCode(200)
-                    .body("id", is(159))
-                    .body("nome", is("SR. MARCOS LOPES"))
-                    .body("login", is("DAVI.ALVES"))
-                    .body("senha", is("roberto"))
-                    .body("ativo", is(true));
+                    .body("id", is(155));
     }
 
     @Test
@@ -79,7 +78,7 @@ public class UsuarioTest extends BaseTest {
     public void deveSalvarUsuario(){
         Map<String, Object> params = new HashMap<>();
         params.put("nome", "Teste API 05");
-        params.put("login", "testeapi05");
+        params.put("login", "testeapi" + NumberUtil.gerarNumeroRandomico());
         params.put("senha", "1");
         params.put("ativo", true);
 
@@ -161,7 +160,7 @@ public class UsuarioTest extends BaseTest {
                     .log().all()
                     .contentType("application/json")
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
-                    .pathParam("id", 184)
+                    .pathParam("id", UsuarioData.dataForRemoveUsuario())
                 .when()
                     .delete(USUARIO+"{id}")
                 .then()

@@ -169,7 +169,7 @@ public class ClienteTest extends BaseTest {
                     .contentType("application/json")
                     .auth().basic(USER_FOR_TEST, PASSWORD_FOR_TEST)
                 .when()
-                    .delete(CLIENTE+ ClienteData.dataForRemoveCliente())
+                    .delete(CLIENTE + ClienteData.dataForRemoveCliente())
                 .then()
                     .statusCode(204);
     }
